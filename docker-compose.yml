@@ -1,0 +1,49 @@
+version: '3.9'
+
+services:
+  ui:
+    container_name: stramlit
+    hostname: stramlit
+    build: ui/
+    ports:
+      - 80:8501
+    volumes:
+      - ./ui:/ui
+    networks:
+      - frontend-net
+    depends_on:
+      - api
+
+  api:
+    container_name: api
+    hostname: api
+    build: api/
+    ports:
+      - 8080:80
+    volumes:
+      - ./api:/api
+    networks:
+      - frontend-net
+      - backend-net
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:5.0
+    container_name: mongodb
+    hostname: mongodb
+    restart: always
+    ports:
+    
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - ./mongo:/data/db
+    networks:
+      - backend-net
+
+networks:
+  frontend-net:
+  backend-net:
