@@ -21,11 +21,9 @@ def plot_prediction(image, predictions):
 
 def main():
 
-    st.title('Clasificador de motos')
+    st.title('Detector de Caras')
 
-    st.header("A continuación un clasificador de motos:")
-
-    uploaded_file = st.file_uploader(label="Selecciona una imagen de moto:",
+    uploaded_file = st.file_uploader(label="Selecciona una imagen con caras:",
                                      type=["png", "jpeg", "jpg"])
 
     if not uploaded_file:
